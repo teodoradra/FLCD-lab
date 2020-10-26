@@ -11,4 +11,11 @@ public class HashNode<Integer, String> {
         this.value = value;
     }
 
+    public int getKey() {
+        return key;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

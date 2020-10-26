@@ -1,0 +1,10 @@
+int[20] l;
+int i ;
+int n;
+int sum;
+int nr;
+ReadFromConsole( n );
+forEach (i in n) {
+ReadFromConsole( nr );
+sum <- sum + nr;
+}

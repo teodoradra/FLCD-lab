@@ -1,11 +1,14 @@
 package datastructure;
 
+import model.Scanner;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class SymbolTable {
 
     ArrayList<HashNode<Integer, String>> symbolTable;
-    int numBuckets=10;
+    int numBuckets=200;
     int size;
 
     public SymbolTable()
@@ -50,7 +53,7 @@ public class SymbolTable {
     }
 
 
-    public void add(String value)
+    public int add(String value)
     {
         int index = getSymbolTableIndex(value);
         //System.out.println("The index of the key: " + value.toString() + " is : " + index);
@@ -82,55 +85,74 @@ public class SymbolTable {
                 size++;
             }
         }
-        if ((1.0 * size) / numBuckets > 0.8)
-        {
-            //do something
-            ArrayList<HashNode<Integer, String>> tmp = symbolTable;
-            symbolTable=new ArrayList<>();
-            numBuckets = 2*numBuckets;
-            for(int i=0; i<numBuckets; i++)
-            {
-                symbolTable.add(null);
-            }
-            for(HashNode<Integer, String> headNode: tmp)
-            {
-                while(headNode!=null)
-                {
-                    add(headNode.value);
-                    headNode = headNode.next;
-                }
-            }
-        }
+//        if ((1.0 * size) / numBuckets > 0.8)
+//        {
+//            //do something
+//            ArrayList<HashNode<Integer, String>> tmp = symbolTable;
+//            symbolTable=new ArrayList<>();
+//            numBuckets = 2*numBuckets;
+//            for(int i=0; i<numBuckets; i++)
+//            {
+//                symbolTable.add(null);
+//            }
+//            for(HashNode<Integer, String> headNode: tmp)
+//            {
+//                while(headNode!=null)
+//                {
+//                    add(headNode.value);
+//                    headNode = headNode.next;
+//                }
+//            }
+//        }
+        return index;
     }
 
-    public void tostring(){
+    public String tostring(){
+        StringBuilder buffer = new StringBuilder();
         HashNode<Integer, String> headNode;
         for (int i = 0; i< this.numBuckets; i++){
-            System.out.println("---" + i + "---");
             headNode = symbolTable.get(i);
             while(headNode != null)
             {
-                System.out.println(headNode.key + " - " + headNode.value);
+                buffer.append(headNode.key).append(" - ").append(headNode.value).append("\n");
                 headNode = headNode.next;
             }
         }
+        return buffer.toString();
+    }
+
+    public ArrayList<HashNode<Integer, String>> getSymbolTable() {
+        return symbolTable;
     }
 
     public static void main(String[] args)
     {
-        SymbolTable map = new SymbolTable();
-        map.add("this");
-        map.add("ths");
-        map.add("thi");
-        map.add("uhi");
-        map.add("phi");
-        map.add("ghi");
-        map.add("hhi");
-        map.add("ohi");
-        map.add("ohi");
-        map.add("ith");
-        System.out.println(map.get("ohi"));
-        map.tostring();
+//        SymbolTable map = new SymbolTable();
+//        map.add("this");
+//        map.add("ths");
+//        map.add("thi");
+//        map.add("uhi");
+//        map.add("phi");
+//        map.add("ghi");
+//        map.add("hhi");
+//        map.add("ohi");
+//        map.add("ohi");
+//        map.add("ith");
+//        System.out.println(map.get("ohi"));
+//        map.tostring();
+        Scanner scanner = new Scanner();
+        List<String> errors = scanner.run();
+        if (errors.size() == 0){
+            System.out.println("Lexically correct");
+        } else {
+            System.out.println("Lexically incorrect");
+            for ( String error : errors){
+                System.out.println(error);
+            }
+        }
+        scanner.writePif();
+        scanner.writeST();
+//        scanner.displayPIFReadable();
 
     }
 

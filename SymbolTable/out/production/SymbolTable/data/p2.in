@@ -1,0 +1,10 @@
+int a;
+int b;
+ReadFromConsole( a );
+ReadFromConsole( b );
+if (a > b) {
+PrintOut( " a is bigger than b " );
+}
+else {
+PrintOut( " b is bigger than a " );
+}
