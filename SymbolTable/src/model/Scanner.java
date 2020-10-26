@@ -38,10 +38,6 @@ public class Scanner {
         this.regularRelational.add("<");
     }
 
-    public List<Pair<String, Integer>> getPif(){
-        return pif;
-    }
-
     /**
      * Run the scanner.
      *
@@ -336,14 +332,6 @@ public class Scanner {
     }
 
 
-    private TokenType getTokenType(String part) {
-        if (isIdentifier(part)) {
-            return TokenType.IDENTIFIER;
-        } else {
-            return TokenType.CONSTANT;
-        }
-    }
-
     private boolean isStCandidate(String part) throws
             IllegalIdentifierNameException {
         if (isConstant(part)) {
@@ -377,22 +365,6 @@ public class Scanner {
         System.out.println("Language codification: " + codification + '\n');
     }
 
-    public void displayPIFReadable(List<Pair<String, Integer>> pif) {
-        List<Pair<String, String>> pifReadable = new ArrayList<>();
-        for (Pair pair : pif) {
-            String codificationTableCode = (String) pair.getKey();
-            Integer symbolTablePosition = (Integer) pair.getValue();
-
-            String codificationTableToken = codification.get(Integer.parseInt(codificationTableCode));
-            if (symbolTablePosition == -1) {
-                pifReadable.add(new Pair<>(codificationTableToken + " " + codificationTableCode, " dinCodificare "));
-            } else {
-                Integer symbolTableEntry = symbolTable.get(codificationTableCode);
-                pifReadable.add(new Pair<>(codificationTableToken + " " + codificationTableCode, " " + symbolTableEntry));
-            }
-        }
-//        System.out.println("Program Internal Form readable: " + pifReadable);
-    }
 
     public void writePif(){
         try{
