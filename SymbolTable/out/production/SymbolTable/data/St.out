@@ -1,10 +1,14 @@
-22 - Evennr
-48 - 0
+Hash table of key value pairs (hash of the value, value)
+ 48 - 0
 49 - 1
 50 - 2
+51 - 3
+52 - 4
+54 - 6
 71 - odd
-83 - Oddnr
 108 - l
+119 - Odd
 119 - elem
 130 - even
+167 - 10
 198 - 20

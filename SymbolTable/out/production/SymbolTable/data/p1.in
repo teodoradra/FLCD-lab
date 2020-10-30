@@ -1,14 +1,14 @@
 int[20]  l;
-l<- [1,2,3,4,6,10,3];
+l<- [1,-2,+3,4,6,10,3];
 int elem;
 int even;
 int odd ;
 forEach (elem in l) {
 if (elem % 2==0) {
     even+=1;
-    PrintOut( "Even nr " );
+    PrintOut( "Even") ;
 } else {
     odd+=1;
-PrintOut( " Odd nr " );
+PrintOut( "Odd" );
 }
 }

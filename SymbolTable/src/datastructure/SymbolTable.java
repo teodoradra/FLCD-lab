@@ -33,7 +33,6 @@ public class SymbolTable {
     private int getSymbolTableIndex(String value)
     {
         int hashCod = value.hashCode();
-        System.out.println(hashCod);
         return hashCod % numBuckets;
     }
 
@@ -56,7 +55,6 @@ public class SymbolTable {
     public int add(String value)
     {
         int index = getSymbolTableIndex(value);
-        //System.out.println("The index of the key: " + value.toString() + " is : " + index);
 
         HashNode<Integer, String> head = symbolTable.get(index);   // if there is a value on that index
         HashNode<Integer, String> toAdd = new HashNode<>();
@@ -127,19 +125,6 @@ public class SymbolTable {
 
     public static void main(String[] args)
     {
-//        SymbolTable map = new SymbolTable();
-//        map.add("this");
-//        map.add("ths");
-//        map.add("thi");
-//        map.add("uhi");
-//        map.add("phi");
-//        map.add("ghi");
-//        map.add("hhi");
-//        map.add("ohi");
-//        map.add("ohi");
-//        map.add("ith");
-//        System.out.println(map.get("ohi"));
-//        map.tostring();
         Scanner scanner = new Scanner();
         List<String> errors = scanner.run();
         if (errors.size() == 0){

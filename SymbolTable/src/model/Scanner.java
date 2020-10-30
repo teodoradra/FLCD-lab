@@ -33,7 +33,7 @@ public class Scanner {
         this.specialRelational.add(">=");
         this.specialRelational.add("<=");
         this.specialRelational.add("==");
-        this.specialRelational.add("in");
+//        this.specialRelational.add("in");
         this.regularRelational.add(">");
         this.regularRelational.add("<");
     }
@@ -134,19 +134,24 @@ public class Scanner {
 
 
         if (separator.equals("(")) {
+            specialCase = true;
             if (word.contains("PrintOut")){
-                    allTokens.add("PrintOut");
-                    allTokens.add("(");
-                    allTokens.add("\"");
                 if (line.indexOf("\"") == line.lastIndexOf("\"")){
                     throw new PrintoutError(" you forgot about one \"");
                 }
-                else {
-                    allTokens.add(removeExtraSpace(line.substring(line.indexOf("\"") + 1, line.lastIndexOf("\""))));
+                else if (!line.contains("\"")){
+                    throw new PrintoutError(" Does not contain any \"");
                 }
-                allTokens.add("\"");
-                allTokens.add(")");
-                allTokens.add(";");
+                else {
+                    allTokens.add("PrintOut");
+                    allTokens.add("(");
+                    allTokens.add("\"");
+                    allTokens.add((line.substring(line.indexOf("\"")+ 1, line.lastIndexOf("\""))));
+                    allTokens.add("\"");
+                    allTokens.add(")");
+                    allTokens.add(";");
+                }
+
                 return line.split(" ").length;
             }
             if (word.contains("ReadFromConsole")){
@@ -219,8 +224,8 @@ public class Scanner {
 
         if (separator.equals(")")) {
             specialCase = true;
-            splitList = word.split("\\)");
-            allTokens.add(splitList[0]);
+//            splitList = word.split("\\)");
+//            allTokens.add(splitList[0]);
             allTokens.add(separator);
         }
 
@@ -258,19 +263,7 @@ public class Scanner {
             }
         }
 
-        if (separator.equals("?")) {
-            allTokens.add(separator);
-            specialCase = true;
-        }
-
         if (separator.equals("+")) {
-            allTokens.add(separator);
-            specialCase = true;
-        }
-
-        if (separator.equals(".")) {
-            splitList = word.split("\\.");
-            allTokens.add(splitList[0]);
             allTokens.add(separator);
             specialCase = true;
         }
@@ -345,13 +338,17 @@ public class Scanner {
         }
     }
 
+    private boolean isSpace(String elem){
+        return elem.equals(" ");
+    }
+
     private boolean isIdentifier(String part) {
         return part.matches("(^[a-zA-Z]+[_0-9a-zA-Z]*)");
     }
 
     private boolean isConstant(String part) {
-        return part.matches("\\-?[1-9]+[0-9]*|0")
-                || part.matches("'[1-9a-zA-Z]'")
+        return part.matches("[-+]?[1-9]+[0-9]*|0")
+//                || part.matches("'[1-9a-zA-Z]'")
                 || part.matches("\"[1-9a-zA-Z]+\"");
     }
 
@@ -381,10 +378,7 @@ public class Scanner {
     public void writeST(){
         try{
             FileWriter writePifFile = new FileWriter("D:\\Facultate\\Anul 3\\Semestrul 1\\LFTC\\Laboratoare\\FLCD-lab\\SymbolTable\\src\\data\\St.out");
-//            for (HashNode<Integer, String> pair : symbolTable.getSymbolTable()){
-////                writePifFile.append((char) pair.getKey()).append(" : ").append(String.valueOf(pair.getValue())).append("\n");
-////            }
-            writePifFile.write(symbolTable.tostring());
+            writePifFile.write("Hash table of key value pairs (hash of the value, value)\n " + symbolTable.tostring());
             writePifFile.close();
         } catch (IOException e) {
             e.printStackTrace();
