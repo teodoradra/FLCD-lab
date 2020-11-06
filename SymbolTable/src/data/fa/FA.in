@@ -1,0 +1,5 @@
+      + - 0 1 2 3 4 5 6 7 8 9
+ -> p q q r s s s s s s s s s
+    q ε ε ε s s s s s s s s s
+ *  s ε ε ε s s s s s s s s s
+ *  r ε ε ε ε ε ε ε ε ε ε ε ε

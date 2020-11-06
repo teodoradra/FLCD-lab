@@ -1,5 +1,7 @@
 Hash table of key value pairs (hash of the value, value)
- 48 - 0
+ 18 - Even
+45 - -2
+48 - 0
 49 - 1
 50 - 2
 51 - 3
@@ -11,4 +13,5 @@ Hash table of key value pairs (hash of the value, value)
 119 - elem
 130 - even
 167 - 10
+184 - +3
 198 - 20
