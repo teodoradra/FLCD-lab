@@ -24,8 +24,14 @@ public class Scanner {
     private List<String> regularRelational = new ArrayList<>();
     private List<String> allTokens = new ArrayList<>();
 
+    private FiniteAutomaton fa_identifiers;
+    private FiniteAutomaton fa_constants;
 
     public Scanner(){
+        fa_constants = new FiniteAutomaton("D:\\Facultate\\Anul 3\\Semestrul 1\\LFTC\\Laboratoare\\FLCD-lab\\SymbolTable\\src\\data\\fa\\constant.in");
+        fa_identifiers = new FiniteAutomaton("D:\\Facultate\\Anul 3\\Semestrul 1\\LFTC\\Laboratoare\\FLCD-lab\\SymbolTable\\src\\data\\fa\\identifier.in");
+
+
         symbolTable = new SymbolTable();
         pif = new ArrayList<>();
         codification = new ArrayList<>();
@@ -343,13 +349,15 @@ public class Scanner {
     }
 
     private boolean isIdentifier(String part) {
-        return part.matches("(^[a-zA-Z]+[_0-9a-zA-Z]*)");
+//        return part.matches("(^[a-zA-Z]+[_0-9a-zA-Z]*)");
+        return fa_identifiers.isOk(part);
     }
 
     private boolean isConstant(String part) {
-        return part.matches("[-+]?[1-9]+[0-9]*|0")
-//                || part.matches("'[1-9a-zA-Z]'")
-                || part.matches("\"[1-9a-zA-Z]+\"");
+        return fa_constants.isOk(part);
+//        return part.matches("[-+]?[1-9]+[0-9]*|0")
+////                || part.matches("'[1-9a-zA-Z]'")
+//                || part.matches("\"[1-9a-zA-Z]+\"");
     }
 
     private void getCodif() {

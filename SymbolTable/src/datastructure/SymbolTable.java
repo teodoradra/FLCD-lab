@@ -1,5 +1,6 @@
 package datastructure;
 
+import model.FiniteAutomaton;
 import model.Scanner;
 
 import java.util.ArrayList;

@@ -10,12 +10,13 @@ public class FiniteAutomatonUI {
         System.out.println("2. Print the alphabet \n");
         System.out.println("3. Print all the transitions \n");
         System.out.println("4. Print the set of final states \n");
-        System.out.println("5. Is this FA deterministic? \n");
+        System.out.println("5. Print the set of initial states \n");
+        System.out.println("6. Is this FA deterministic? \n");
         System.out.println("0. Exit \n");
     }
 
     public static void main(String[] args) {
-        FiniteAutomaton fa = new FiniteAutomaton();
+        FiniteAutomaton fa = new FiniteAutomaton("D:\\Facultate\\Anul 3\\Semestrul 1\\LFTC\\Laboratoare\\FLCD-lab\\SymbolTable\\src\\data\\fa\\constant.in");
         Scanner console = new Scanner(System.in);
         printMenu();
 
@@ -35,7 +36,18 @@ public class FiniteAutomatonUI {
                     System.out.println("Final states: " + fa.getFinalStates());
                     break;
                 case 5:
+                    System.out.println("Initial states: " + fa.getInitialState());
+                    break;
+                case 6:
                     System.out.println("FA is deterministic: " + fa.isDeterministic());
+                    break;
+                case 7:
+                    System.out.println("Is ok? : " );
+                    if (fa.isOk(console.next())) {
+                        System.out.print(true);
+                    } else {
+                        System.out.print(false);
+                    }
                     break;
                 case 0:
                     System.exit(0);

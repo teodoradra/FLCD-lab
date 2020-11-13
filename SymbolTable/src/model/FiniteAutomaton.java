@@ -13,12 +13,12 @@ public class FiniteAutomaton {
     private List<String> states;
     private List<String> finalStates;
     private String initialState;
-    private List<String>[][] matrix = new ArrayList[25][25];
-    private int iMatrix = 4;
-    private int jMatrix = 11;
+    private List<String>[][] matrix = new ArrayList[100][100];
+    private int iMatrix ;
+    private int jMatrix;
 
-    public FiniteAutomaton()  {
-        path = "D:\\Facultate\\Anul 3\\Semestrul 1\\LFTC\\Laboratoare\\FLCD-lab\\SymbolTable\\src\\data\\fa\\FA.in";
+    public FiniteAutomaton(String path)  {
+        this.path = path;
         alphabet = new ArrayList<>();
         finalStates = new ArrayList<>();
         states = new ArrayList<>();
@@ -39,6 +39,7 @@ public class FiniteAutomaton {
         while (tokenizer.hasMoreTokens()) {
             alphabet.add(tokenizer.nextToken());
         }
+        jMatrix = alphabet.size();
         int j,i = 0;
         while (scanner.hasNextLine()){
             j=0;
@@ -75,6 +76,7 @@ public class FiniteAutomaton {
                 i++;
             }
         }
+        iMatrix = states.size();
     }
 
     public String alphabet(){
@@ -97,10 +99,6 @@ public class FiniteAutomaton {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < iMatrix; i++){
             for (int j = 0; j<jMatrix; j++){
-//                if (matrix[i][j] != null){
-//                    result.append("δ(").append(states.get(i)).append(",").append(alphabet.get(j)).append(") = ")
-//                            .append(matrix[i][j]).append("\n");
-//                }
                 for (String e: matrix[i][j]) {
                     result.append("δ(").append(states.get(i)).append(",").append(alphabet.get(j)).append(") = ")
                             .append(e).append("\n");
@@ -121,6 +119,29 @@ public class FiniteAutomaton {
             }
         }
         return isDeterministic;
+    }
+
+    public boolean isOk(String str){
+        boolean isOk = true;
+        String firstState = initialState;
+
+        while (isOk && str.length()>0){
+            String character = String.valueOf(str.charAt(0));
+            int index_state = states.indexOf(firstState);
+            int index_alphabet = alphabet.indexOf(character);
+            if (alphabet.contains(character)){
+                List<String> resultSymbol = matrix[states.indexOf(firstState)][alphabet.indexOf(character)];
+                if (resultSymbol.size() > 0 && !resultSymbol.get(0).equals("ε")){
+                    str = str.substring(1);
+                    firstState = resultSymbol.get(0);
+                } else {
+                    isOk = false;
+                }
+            } else {
+                isOk = false;
+            }
+        }
+        return isOk;
     }
 
 }
