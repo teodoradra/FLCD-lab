@@ -1,4 +1,5 @@
 {
+  "startingSymbol": "S",
   "terminals": ["0","1"],
   "nonTerminals": ["S","A","B"],
   "productions": {
