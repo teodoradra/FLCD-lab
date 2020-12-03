@@ -1,9 +1,7 @@
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ParseTable {
@@ -14,6 +12,7 @@ public class ParseTable {
     }
 
     public Pair<List<String>, Integer> get(Pair<String, String> key) {
+        List<Pair<List<String>, Integer>> list = new ArrayList<>();
         for (Pair<Pair<String, String>, Pair<List<String>, Integer>> entry : table) {
             if (entry.getValue() != null) {
                 Pair<String, String> currentKey = entry.getKey();
@@ -21,7 +20,6 @@ public class ParseTable {
 
                 if (currentKey.getKey().equals(key.getKey()) && currentKey.getValue().equals(key.getValue())) {
                     return currentValue;
-
                 }
             }
         }

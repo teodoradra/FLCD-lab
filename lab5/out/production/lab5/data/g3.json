@@ -1,0 +1,232 @@
+{
+  "startingSymbol": "program",
+  "terminals": ["+", "-", "*","/", ".", "<-", "<", "<=", "=", ">=", "+=", "-=", "'", "*=", "/=", "<>","%", "!","[","]", "{",
+                  "}", "\"", "," , ":", ";", "(", ")", "space","array", "char", "else", "if", "int", "for", "while",
+                    "read", "write", "function", "true", "false",
+                      "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+                      "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+                      "0","1","2","3","4","5","6","7","8","9"
+  ],
+  "nonTerminals": ["program","IDENTIFIER","ident","letter","nonzerodigit","digit",
+                    "int","no","number","char","string","const",
+                    "bool","real", "program","decllist","forstmt"
+                    ,"declaration","type","arraydecl","cmpdstmt",
+                    "stmtlist","stmt","simplstmt","assignstmt",
+                      "expression","term","factor","iostmt","structstmt",
+                      "ifstmt","whilestmt","condition","RELATION","SIMPLERELATION"
+  ],
+  "productions": {
+    "program": [
+      ["decllist"]
+    ],
+    "IDENTIFIER": [
+      ["letter", "ident"],
+      ["letter"]
+    ],
+    "ident": [
+      ["digit"],
+      ["digit", "IDENTIFIER"]
+    ],
+    "letter": [
+      ["a"],
+      ["b"],
+      ["c"],
+      ["d"],
+      ["e"],
+      ["f"],
+      ["g"],
+      ["h"],
+      ["i"],
+      ["j"],
+      ["k"],
+      ["l"],
+      ["m"],
+      ["n"],
+      ["o"],
+      ["p"],
+      ["q"],
+      ["r"],
+      ["s"],
+      ["t"],
+      ["u"],
+      ["v"],
+      ["w"],
+      ["x"],
+      ["y"],
+      ["z"],
+      ["A"],
+      ["B"],
+      ["C"],
+      ["D"],
+      ["E"],
+      ["F"],
+      ["G"],
+      ["H"],
+      ["I"],
+      ["J"],
+      ["K"],
+      ["L"],
+      ["M"],
+      ["N"],
+      ["O"],
+      ["P"],
+      ["Q"],
+      ["R"],
+      ["S"],
+      ["T"],
+      ["U"],
+      ["V"],
+      ["W"],
+      ["X"],
+      ["Y"],
+      ["Z"]
+    ],
+    "nonzerodigit": [
+      ["1"],
+      ["2"],
+      ["3"],
+      ["4"],
+      ["5"],
+      ["6"],
+      ["7"],
+      ["8"],
+      ["9"]
+    ],
+    "digit": [
+      ["0"],
+      ["1"],
+      ["2"],
+      ["3"],
+      ["4"],
+      ["5"],
+      ["6"],
+      ["7"],
+      ["8"],
+      ["9"]
+    ],
+    "int": [
+      ["+","no"],
+      ["-","no"],
+      ["no"]
+    ],
+    "no": [
+      ["nonzerodigit","no"],
+      ["number"]
+    ],
+    "number": [
+      ["digit", "number"]
+    ],
+    "char": [
+      ["'","letter","'"],
+      ["'","digit","'"]
+    ],
+    "string": [
+      ["\"", "str","\""]
+    ],
+    "str": [
+      ["character", "str"],
+      ["ε"]
+    ],
+    "character": [
+      ["letter"],
+      ["digit"]
+    ],
+    "bool": [
+      ["0"],
+      ["1"],
+      ["true"],
+      ["false"]
+    ],
+    "real": [
+      ["int", ".", "no"]
+    ],
+    "decllist": [
+      ["declaration", "decllist"],
+      ["declaration"]
+    ],
+    "forstmt": [
+      ["for","(","declaration",":","IDENTIFIER",")", "{", "stmt", "}"]
+    ],
+    "declaration": [
+      ["type", "IDENTIFIER"],
+      ["type", "IDENTIFIER", "<-", "const"]
+    ],
+    "const": [
+      ["arraydecl"],
+      ["IDENTIFIER"],
+      ["nr"],
+      ["string"],
+      ["bool"]
+    ],
+    "type": [
+      ["bool"],
+      ["char"],
+      ["int"],
+      ["real"],
+      ["array"]
+    ],
+    "arraydecl": [
+      ["[", "nr", "]"]
+    ],
+    "nr":[
+      ["no", ",", "nr"],
+      ["no"]
+    ],
+    "cmpdstmt": [
+      ["{", "stmtlist", "}"]
+    ],
+    "stmtlist": [
+      ["stmt"],
+      ["stmt", ";", "stmtlist"]
+    ],
+    "stmt": [
+      ["simplstmt"],
+      ["structstmt"]
+    ],
+    "simplstmt": [
+      ["assignstmt"],
+      ["iostmt"]
+    ],
+    "assignstmt": [
+      ["IDENTIFIER", "<-", "expression"],
+      ["IDENTIFIER", "<-", "arraydecl"]
+    ],
+    "expression": [
+      ["term", "+", "expression"],
+      ["term"]
+    ],
+    "term": [
+      ["factor", "*", "term"],
+      ["factor"]
+    ],
+    "factor": [
+      ["(", "expression", ")"],
+      ["IDENTIFIER"]
+    ],
+    "iostmt": [
+      ["read", "(", "IDENTIFIER",")"],
+      ["write", "(", "IDENTIFIER",")"]
+    ],
+    "structstmt": [
+      ["cmpdstmt"],
+      ["ifstmt"],
+      ["whilestmt"]
+    ],
+    "ifstmt": [
+      ["if", " condition", "{", "stmt", "}"]
+    ],
+    "whilestmt": [
+      ["while", "condition", "{", "stmt", "}"]
+    ],
+    "condition": [
+      ["expression", "RELATION", "expression"]
+    ],
+    "RELATION": [
+      ["SIMPLERELATION"],
+      ["!","SIMPLERELATION"]
+    ],
+    "SIMPLERELATION": [
+      ["<", "<=", "=", "<>", ">=", ">"]
+    ]
+  }
+}

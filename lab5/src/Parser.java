@@ -1,26 +1,43 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Table;
-import com.google.common.collect.Tables;
 import com.google.common.collect.TreeBasedTable;
 import javafx.util.Pair;
 
-import javax.swing.*;
-import javax.swing.plaf.synth.SynthMenuBarUI;
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
-import java.io.File;
 import java.util.*;
 
 public class Parser {
     private Grammar grammar;
     private Map<String, Set<String>> followSet;
-    public Table<Integer, Integer, String> output;
+    private Map<String, Set<String>> firstSet;
+    public ParserOutput output;
     public ParseTable parseTable = new ParseTable();
     private static Stack<List<String>> rules = new Stack<>();
     private Map<Pair<String, List<String>>, Integer> productionsNumbered = new HashMap<>();
 
 
     public Parser(Grammar grammar){
+        output = new ParserOutput();
         this.grammar = grammar;
+        this.firstSet = new HashMap<>();
+        this.followSet = new HashMap<>();
+        generateSets();
+    }
+
+    private void generateSets(){
+        generateFirstSet();
+        generateFollowSet();
+        createParseTable();
+    }
+
+    private void generateFollowSet() {
+        for (String nonTerminal : grammar.nonTerminals) {
+            followSet.put(nonTerminal, this.follow(nonTerminal, nonTerminal));
+        }
+    }
+
+    private void generateFirstSet() {
+        for (String nonTerminal : grammar.nonTerminals) {
+            firstSet.put(nonTerminal, this.first(nonTerminal));
+        }
     }
 
     public void createParseTable(){
@@ -54,14 +71,16 @@ public class Parser {
 
             for (String columnSymbol: columnSymbols){
                 Pair<String, String> parseTableKey = new Pair<>(rowSymbol, columnSymbol);
-
+//                System.out.println(grammar.nonTerminals.contains(rule.get(0)));
+//                System.out.println(firstSet.get(rule.get(0)));
+//                System.out.println(rule.get(0));
                 // if our column-terminal is exactly first of rule
                 if (rule.get(0).equals(columnSymbol) && !columnSymbol.equals("ε")) {
                     parseTable.put(parseTableKey, parseTableValue);
 
                     // if the first symbol is a non-terminal and it's first contain our column-terminal
                 }
-                else if (grammar.nonTerminals.contains(rule.get(0)) && first(rule.get(0)).contains(columnSymbol)) {
+                else if (grammar.nonTerminals.contains(rule.get(0)) && firstSet.get(rule.get(0)).contains(columnSymbol)) {
                     if (!parseTable.containsKey(parseTableKey)) {
                         parseTable.put(parseTableKey, parseTableValue);
                     }
@@ -69,16 +88,16 @@ public class Parser {
                 else {
                     // if the first symbol is e then everything if FOLLOW(rowSymbol) will be in spare table
                     if (rule.get(0).equals("ε")) {
-                        for (String b : follow(rowSymbol, rowSymbol))
+                        for (String b : followSet.get(rowSymbol))
                             parseTable.put(new Pair<>(rowSymbol, b), parseTableValue);
                         // if ε is in first(rule)
                     } else {
                         Set<String> firsts = new HashSet<>();
                         for (String symbol: rule)
                             if (grammar.nonTerminals.contains(symbol))
-                                firsts.addAll(first(symbol));
+                                firsts.addAll(firstSet.get(symbol));
                         if (firsts.contains("ε")){
-                            for (String b: first(rowSymbol)){
+                            for (String b: firstSet.get(rowSymbol)){
                                 if (b.equals("ε"))
                                     b = "$";
                                 parseTableKey = new Pair<>(rowSymbol, b);
@@ -93,7 +112,7 @@ public class Parser {
     }
 
     public boolean parse(String input){
-        output = TreeBasedTable.create();
+
         List<String> w = Arrays.asList(input.split(" "));
 
         Stack<String> alpha = new Stack<>();
@@ -114,6 +133,7 @@ public class Parser {
         boolean result = true;
 
         while (go){
+//            System.out.println(beta);
             String betaHead = beta.peek();
             String alphaHead = alpha.peek();
 
@@ -155,12 +175,17 @@ public class Parser {
                             beta.push(production.get(i));
                         }
 
-                        for(String value : production){
+                        output.getOutput().put(index, 0, Collections.singletonList(current));
+                        output.getOutput().put(index, 1, production);
+                        output.getOutput().put(index, 2, Collections.singletonList(String.valueOf(depth)));
+                        index++;
+
+                        /*for(String value : production){
                             output.put(index, 0, current);
-                            output.put(index, 1, value);
+                            output.put(index, 1, value+ ":" + (index + 1));
                             output.put(index, 2, String.valueOf(depth));
                             index++;
-                        }
+                        }*/
                     }
                     pi.push(productionPosition.toString());
                     depth++;
@@ -171,8 +196,13 @@ public class Parser {
     }
 
     public Set<String> first(String nonTerminal){
+        if (firstSet.containsKey(nonTerminal))
+            return firstSet.get(nonTerminal);
+
         Set<String> temp = new HashSet<>();
         Set<String> terminals = grammar.terminals;
+
+//        System.out.println(nonTerminal);
 
         for (List<String> list: grammar.productions.get(nonTerminal)){
             String firstSymbol = list.get(0);
@@ -187,6 +217,8 @@ public class Parser {
     }
 
     public Set<String> follow(String nonTerminal, String initialNonTerminal){
+        if (followSet.containsKey(nonTerminal))
+            return followSet.get(nonTerminal);
         Set<String> temp = new HashSet<>();
         Set<String> terminals = grammar.terminals;
 
@@ -246,5 +278,9 @@ public class Parser {
         for (Map.Entry<String, List<List<String>>> productions : grammar.productions.entrySet())
             for (List<String> rule: productions.getValue())
                 productionsNumbered.put(new Pair<>(productions.getKey(), rule), index++);
+    }
+
+    public void toTree(){
+        output.toTree(this);
     }
 }
