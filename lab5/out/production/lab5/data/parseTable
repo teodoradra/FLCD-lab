@@ -1,0 +1,127 @@
+[program]
+ | 
+[decllist]
+ | 
+[declaration, ;, decllist]
+ | 
+[type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, const, ;, decllist]
+ | 
+[int, a, <-, no, ;, decllist]
+ | 
+[int, a, <-, number, ;, decllist]
+ | 
+[int, a, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, decllist]
+ | 
+[int, a, <-, 5, ;, declaration, ;, decllist]
+ | 
+[int, a, <-, 5, ;, type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, no, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, number, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, declaration, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, no, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, number, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, forstmt]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, type, IDENTIFIER, :, IDENTIFIER, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, IDENTIFIER, :, IDENTIFIER, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, letter, :, IDENTIFIER, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, IDENTIFIER, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, letter, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, stmt, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, structstmt, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, ifstmt, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, condition, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, IDENTIFIER, expression, const, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, letter, expression, const, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, expression, const, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, const, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, no, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, number, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, digit, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, RELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, SIMPLERELATION, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, const, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, no, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, number, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, digit, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, stmt, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, simplstmt, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, assignstmt, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, IDENTIFIER, <-, IDENTIFIER, expression, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, letter, <-, IDENTIFIER, expression, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, IDENTIFIER, expression, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, letter, expression, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, r, expression, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, r, +, const, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, r, +, IDENTIFIER, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, r, +, letter, ;, }, ;, }]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, int, m, :, a, ), {, if, (, n, %, 2, =, 0, ), {, r, <-, r, +, m, ;, }, ;, }]

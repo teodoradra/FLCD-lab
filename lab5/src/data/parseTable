@@ -1,0 +1,61 @@
+[program]
+ | 
+[decllist]
+ | 
+[declaration, ;, decllist]
+ | 
+[type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, const, ;, decllist]
+ | 
+[int, a, <-, no, ;, decllist]
+ | 
+[int, a, <-, number, ;, decllist]
+ | 
+[int, a, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, decllist]
+ | 
+[int, a, <-, 5, ;, declaration, ;, decllist]
+ | 
+[int, a, <-, 5, ;, type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, no, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, number, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, declaration, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, type, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, IDENTIFIER, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, letter, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, const, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, no, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, number, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, digit, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, decllist]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, forstmt]
+ | 
+[int, a, <-, 5, ;, int, r, <-, 1, ;, int, t, <-, 2, ;, for, (, type, IDENTIFIER, :, IDENTIFIER, ), {, stmt, }]

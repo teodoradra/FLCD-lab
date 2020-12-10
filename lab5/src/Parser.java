@@ -2,12 +2,13 @@ import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Parser {
     private Grammar grammar;
-    private Map<String, Set<String>> followSet;
-    private Map<String, Set<String>> firstSet;
+    public Map<String, Set<String>> followSet;
+    public Map<String, Set<String>> firstSet;
     public ParserOutput output;
     public ParseTable parseTable = new ParseTable();
     private static Stack<List<String>> rules = new Stack<>();
@@ -71,9 +72,6 @@ public class Parser {
 
             for (String columnSymbol: columnSymbols){
                 Pair<String, String> parseTableKey = new Pair<>(rowSymbol, columnSymbol);
-//                System.out.println(grammar.nonTerminals.contains(rule.get(0)));
-//                System.out.println(firstSet.get(rule.get(0)));
-//                System.out.println(rule.get(0));
                 // if our column-terminal is exactly first of rule
                 if (rule.get(0).equals(columnSymbol) && !columnSymbol.equals("ε")) {
                     parseTable.put(parseTableKey, parseTableValue);
@@ -112,6 +110,8 @@ public class Parser {
     }
 
     public boolean parse(String input){
+        String help = "";
+        int line = 0;
 
         List<String> w = Arrays.asList(input.split(" "));
 
@@ -134,6 +134,9 @@ public class Parser {
 
         while (go){
 //            System.out.println(beta);
+            help ="Error at symbol: "+ alpha.peek() + "\n Having the sequence: " +  alpha.toString();
+//            System.out.println(alpha);
+//            System.out.println("------------");
             String betaHead = beta.peek();
             String alphaHead = alpha.peek();
 
@@ -192,6 +195,7 @@ public class Parser {
                 }
             }
         }
+        System.out.println("Error at: "+ help);
         return result;
     }
 
@@ -280,7 +284,7 @@ public class Parser {
                 productionsNumbered.put(new Pair<>(productions.getKey(), rule), index++);
     }
 
-    public void toTree(){
+    public void toTree() throws IOException {
         output.toTree(this);
     }
 }

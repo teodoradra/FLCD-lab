@@ -1,11 +1,11 @@
 {
   "startingSymbol": "program",
-  "terminals": ["+", "-", "*","/", ".", "<-", "<", "<=", "=", ">=", "+=", "-=", "'", "*=", "/=", "<>","%", "!","[","]", "{",
+  "terminals": ["+", "-", "*","/", ".", "<-", "<", "<=", "=", ">=",">", "+=", "-=", "'", "*=", "/=", "<>","%", "!","[","]", "{",
                   "}", "\"", "," , ":", ";", "(", ")", "space","array", "char", "else", "if", "int", "for", "while",
                     "read", "write", "function", "true", "false",
                       "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
                       "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-                      "0","1","2","3","4","5","6","7","8","9"
+                      "0","1","2","3","4","5","6","7","8","9", "ε"
   ],
   "nonTerminals": ["program","IDENTIFIER","ident","letter","nonzerodigit","digit",
                     "int","no","number","char","string","const",
@@ -13,15 +13,15 @@
                     ,"declaration","type","arraydecl","cmpdstmt",
                     "stmtlist","stmt","simplstmt","assignstmt",
                       "expression","term","factor","iostmt","structstmt",
-                      "ifstmt","whilestmt","condition","RELATION","SIMPLERELATION"
+                      "ifstmt","whilestmt","condition","RELATION","SIMPLERELATION", "str"
   ],
   "productions": {
     "program": [
       ["decllist"]
     ],
     "IDENTIFIER": [
-      ["letter", "ident"],
-      ["letter"]
+      ["letter", "ident", "ε"],
+      ["letter", "ε"]
     ],
     "ident": [
       ["digit"],
@@ -114,7 +114,8 @@
       ["number"]
     ],
     "number": [
-      ["digit", "number"]
+      ["digit", "number"],
+      ["digit"]
     ],
     "char": [
       ["'","letter","'"],
@@ -141,20 +142,21 @@
       ["int", ".", "no"]
     ],
     "decllist": [
-      ["declaration", "decllist"],
-      ["declaration"]
+      ["declaration", ";", "decllist", "ε"],
+      ["declaration", "ε"],
+      ["forstmt", "ε"]
     ],
     "forstmt": [
-      ["for","(","declaration",":","IDENTIFIER",")", "{", "stmt", "}"]
+      ["for","(","type", "IDENTIFIER",":","IDENTIFIER",")", "{", "stmt", "}"]
     ],
     "declaration": [
-      ["type", "IDENTIFIER"],
-      ["type", "IDENTIFIER", "<-", "const"]
+      ["type", "IDENTIFIER", "ε"],
+      ["type", "IDENTIFIER", "<-", "const", "ε"]
     ],
     "const": [
       ["arraydecl"],
       ["IDENTIFIER"],
-      ["nr"],
+      ["no"],
       ["string"],
       ["bool"]
     ],
@@ -169,8 +171,8 @@
       ["[", "nr", "]"]
     ],
     "nr":[
-      ["no", ",", "nr"],
-      ["no"]
+      ["no",  "ε"],
+      ["no", ",", "nr"]
     ],
     "cmpdstmt": [
       ["{", "stmtlist", "}"]
@@ -180,28 +182,31 @@
       ["stmt", ";", "stmtlist"]
     ],
     "stmt": [
-      ["simplstmt"],
-      ["structstmt"]
+      ["simplstmt", ";"],
+      ["structstmt", ";"]
     ],
     "simplstmt": [
       ["assignstmt"],
       ["iostmt"]
     ],
     "assignstmt": [
-      ["IDENTIFIER", "<-", "expression"],
-      ["IDENTIFIER", "<-", "arraydecl"]
+      ["IDENTIFIER", "<-", "IDENTIFIER", "expression", "const"],
+      ["IDENTIFIER", "<-", "arraydecl","ε"]
     ],
     "expression": [
-      ["term", "+", "expression"],
-      ["term"]
+      ["+"],
+      ["-"],
+      ["%"],
+      ["/"],
+      ["*"]
     ],
     "term": [
       ["factor", "*", "term"],
-      ["factor"]
+      ["factor", "ε"]
     ],
     "factor": [
       ["(", "expression", ")"],
-      ["IDENTIFIER"]
+      ["IDENTIFIER", "ε"]
     ],
     "iostmt": [
       ["read", "(", "IDENTIFIER",")"],
@@ -213,20 +218,26 @@
       ["whilestmt"]
     ],
     "ifstmt": [
-      ["if", " condition", "{", "stmt", "}"]
+      ["if", "(", "condition", ")", "{", "stmt", "}"]
     ],
     "whilestmt": [
       ["while", "condition", "{", "stmt", "}"]
     ],
     "condition": [
-      ["expression", "RELATION", "expression"]
+      ["IDENTIFIER", "expression", "const", "RELATION", "const", "ε"],
+      ["IDENTIFIER", "RELATION", "const"]
     ],
     "RELATION": [
-      ["SIMPLERELATION"],
+      ["SIMPLERELATION","ε"],
       ["!","SIMPLERELATION"]
     ],
     "SIMPLERELATION": [
-      ["<", "<=", "=", "<>", ">=", ">"]
+      ["<"],
+      ["<="],
+      ["="],
+      ["<>"],
+      [">="],
+      [">"]
     ]
   }
 }
